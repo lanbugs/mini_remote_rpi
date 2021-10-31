@@ -9,19 +9,19 @@ You can start the show with or without sound.
 
 Everything runs under the default pi User because this user is per default logged on and has the screen session.
 
-###Install basic packages
+### Install basic packages
 
 ```
 apt install python3 python3-virtualenv python3-pip vlc git nginx screen
 ```
 
-###Clone the project
+### Clone the project
 ```
 cd ~
 git clone https://github.com/lanbugs/mini_remote_rpi
 ```
 
-###Create virtualenv and install dependencies
+### Create virtualenv and install dependencies
 ```
 cd ~/mini_remote_rpi
 python3 -m venv venv
@@ -29,7 +29,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-###Copy systemd service file and enable service
+### Copy systemd service file and enable service
 
 ```
 sudo cp src/mini_remote_rpi.service /etc/systemd/system
@@ -37,7 +37,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now mini_remote_rpi.service
 ```
 
-###Modify settings.ini
+### Modify settings.ini
 
 Here you can change your playlist which you want to use. 
 The playlists are in the ~/mini_remote_rpi/playlists folder.
@@ -47,7 +47,7 @@ The playlists are in the ~/mini_remote_rpi/playlists folder.
 playlist = example.xspf
 ```
 
-###Copy nginx config
+### Copy nginx config
 ```
 sudo cp src/nginx_default.conf /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx
