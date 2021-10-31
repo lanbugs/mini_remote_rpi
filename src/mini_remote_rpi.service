@@ -1,0 +1,13 @@
+[Unit]
+Description=Mini Remote RPI
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/mini_remote_rpi
+Environment="PATH=/home/pi/mini_remote_rpi/venv/bin"
+ExecStart=/home/pi/mini_remote_rpi/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8001 -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
