@@ -18,49 +18,45 @@ def index():
 
 @app.route("/q/<what>")
 def quest(what):
+
+    v = {}
+
     if what == "start":
-        v = {}
         v['what']=what
         v['name']="Start?"
-        return render_template("q.html", v=v)
 
     elif what == "start_sound":
-        v = {}
         v['what']=what
         v['name']="Start with sound?"
-        return render_template("q.html", v=v)
 
     elif what == "kill":
-        v = {}
         v['what']=what
         v['name']="Kill?"
-        return render_template("q.html", v=v)
 
     elif what == "reboot":
-        v = {}
         v['what']=what
         v['name']="Restart?"
-        return render_template("q.html", v=v)
 
     else:
         return redirect("/", code=302)
+
+    return render_template("q.html", v=v)
+
 
 @app.route("/e/<what>")
 def execute(what):
+
     if what == "start":
         os.system("/usr/bin/screen -dmS video /home/pi/mini_remote_rpi/bin/start_show.sh {}".format(config.get('general', 'playlist')))
-        return redirect("/", code=302)
     elif what == "start_sound":
         os.system("/usr/bin/screen -dmS video /home/pi/mini_remote_rpi/bin/start_show_with_sound.sh {}".format(config.get('general', 'playlist')))
-        return redirect("/", code=302)
     elif what == "kill":
         os.system("/usr/bin/screen -X -S video kill")
-        return redirect("/", code=302)
     elif what == "reboot":
         os.system("/usr/bin/sudo /usr/sbin/reboot")
-        return redirect("/", code=302)
-    else:
-        return redirect("/", code=302)
+
+    return redirect("/", code=302)
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0")
